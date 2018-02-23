@@ -3,22 +3,20 @@
 param
 ([string]$ComputerName)
 
+#List of SCVMM servers to query
 $servers = "SCVMMCSS2", "OAKITVMM", "OAKENGSCVMM2"
 
+#Loop through servers and search for machine on each
 foreach($server in $servers){   
 
+#Capture server and VM info
 $scvmmserv = Get-SCVMMServer $server
 $VM = Get-SCVirtualMachine $ComputerName
 
-
-"i can string wherever i want"
-
+#Once found return info
 if($VM.Name){Return $VM, $scvmmserv} 
 
-
-Else{"No VM"}
-
 }
-
-
+#NO VM FOUND 
+Return "No VM"
 }
