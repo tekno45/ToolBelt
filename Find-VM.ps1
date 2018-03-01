@@ -1,8 +1,11 @@
 ﻿function Find-VM{
 
 param
-([string]$ComputerName,
-$credentials)
+(
+[parameter(Mandatory=$true)][string]$ComputerName,
+[securestring]$credentials,
+[parameter]$servers = (Import-Csv -Path C:\users\jgreene\Documents\ToolBelt\SCVMM_Servers.csv)
+)
 
 #List of SCVMM servers to query
 $servers = Import-Csv -Path C:\users\jgreene\Documents\ToolBelt\SCVMM_Servers.csv
