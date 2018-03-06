@@ -2,15 +2,16 @@
 
 param
 (
-[parameter(Mandatory=$true)][string]$ComputerName,
+[parameter(Mandatory=$true, Position=0)][string]$ComputerName,
 [pscredential]$credentials,
-$servers = (Import-Csv -Path C:\users\jgreene\Documents\ToolBelt\SCVMM_Servers.csv)
+$servers = (Import-Csv -Path C:\users\jgreene\Documents\ToolBelt\SCVMM_Servers.csv),
+[switch]$Full
 )
 
 #Loop through servers and search for machine on each
 foreach($server in $servers){   
 
-    
+
 #Capture server and VM info
     $scvmmserv = Get-SCVMMServer $server.Server -Credential $credentials
     $VM = Get-SCVirtualMachine -All -VMMServer $scvmmserv | `
@@ -19,12 +20,14 @@ foreach($server in $servers){
 #Once found return info
 
 if($VM){
-    $status = $vm.VirtualMachineState
-    $environemnt = $scvmmserv.Name
+#Experimental flags, options for quick status and for full VM object
+    $status = "Currently "+$VM.Status,"in " + $scvmmserv.Name + "environment `n", "CPU at "+ $VM.CPUUtilization + " percent", "with " + $VM.MemoryAvailablePercentage + " percent memory Available"
+    Return $status
 
-#Quick Statement
-    Write-Host "$computerName found in $environemnt environment `n" + "It is currently $status"
-    Return $VM } 
+    if($Full){
+        Return $VM
+    }
+} 
 
 }
 #NO VM FOUND 
