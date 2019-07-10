@@ -65,9 +65,9 @@ if __name__ == "__main__":
     prefix= args.prefix
 
     ##Environment constants
-    bucket='ng.movoto.com'
-    dist_id='E1NGL15C45YBI2' #pi.movoto.com cloud front distribution
-    dest_bucket='photo.backups.movoto.com'
+    bucket='SOURCE BUCKET'
+    dist_id='CLOUDFRONT-DISTRIBUTION 
+    dest_bucket='DESTINATION BUCKET'
 
     ##Main run
     delete_request(prefix, bucket, dist_id, dest_bucket) 
