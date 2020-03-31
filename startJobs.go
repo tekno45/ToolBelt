@@ -19,7 +19,7 @@ import (
 const (
 	QueueURL     = "https://sqs.us-west-2.amazonaws.com/203310025890/testq.fifo"
 	Region       = "us-west-2"
-	CredProfile  = "zapproved-login"
+	CredProfile  = "test-profile"
 	InstanceType = "t2.micro"
 )
 
